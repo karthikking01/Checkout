@@ -1,3 +1,6 @@
-FUR10001798,Furniture,Bush Somerset Collection Bookcase,2.0,261.96,0.0
-OFF10002365,Office Supplies,Xerox 1967,15.552,3.0,0.2
-TEC10001949,Technology,Cisco SPA 501G IP Phone,213.48,3.0,0.2
+FUR1798,Furniture,Bush Somerset Collection Bookcase,17,20999.0,0.0,5.0,104995.0
+OFF2365,Office Supplies,Xerox 1967,3,1199.0,0.2,0.0,0.0
+EDI1949,Edibles,Apple,50,30.0,0.2,10.0,299.4
+TEC1950,Technology,Cisco SPA 501G IP Phone,18,16999.0,0.2,10.0,169650.02
+OFF1234,Office Supplies,Paper A4 500 bundle,70,400.0,0.0,5.0,2000.0
+OFF1235,Office Supplies,Paper A4 1000 bundle,49,700.0,5.0,1.0,665.0
