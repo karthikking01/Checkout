@@ -14,7 +14,8 @@ exit
 bill commands:
 cancel
 addedit <icode> <qty>
-remove <icode> <qty>
+remove <icode>
+finalize
 
 use \"-\" instead of spaces in between of entries
 """
@@ -55,7 +56,7 @@ def parse_menu(inp: str):
     if x[0].upper() == "EXPORT":
         export_data(store)
     elif x[0].upper() == "ADD":
-        add_item(x[1],x[2].replace("-"," "),x[3].replace("-"," "),int(x[4]),float(x[5]),float(x[6]),int(x[7]),int(x[8]))
+        add_item(x[1],x[2].replace("-"," "),x[3].replace("-"," "),int(x[4]),float(x[5]),float(x[6]),0,0)
         print("New Item added!")
     elif x[0].upper() == "REMOVE":
         rem_item(x[1])
@@ -118,7 +119,7 @@ def add_item(icode: str,cat: str,name: str,istock: int,iprice: float,discount: f
     store.loc[icode]=[cat,name,istock,iprice,discount,isold, netsales]
 
 def rem_item(icode: str):
-    del store.loc[icode]
+    store.drop(icode, inplace=True)
 
 def export_data(df:pd.DataFrame):
     df.to_csv("./data/db.csv",header=False, index_label="icode")
@@ -139,7 +140,7 @@ def aoe_bill(icode: str,qty: int): # add if not present/ edit if present
 
 def rem_bill_item(icode):
     try:
-        del bill.loc[icode]
+        bill.drop(icode, inplace=True)
     except:
         print("Item not in bill")
     print("\n")
@@ -147,7 +148,7 @@ def rem_bill_item(icode):
     print('\n')
     
 def finalize_bill():
-    global now
+    global now, last_bill
     print("Bill finalized")
     now = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     print("Timestamp: ",now)
@@ -159,6 +160,8 @@ def finalize_bill():
         store.loc[i,"isold"] += bill.loc[i,'qty']
         store.loc[i,"netsales"] += bill.loc[i,'amt']
     bill.to_csv('./data/lastbill.csv',index_label=cname+" "+now,header=False)
+    last_bill = pd.read_csv("./data/lastbill.csv", header=None, index_col=0, names=['name','qty','price',"discount","amt"])
+
 
 
 def makebill():
