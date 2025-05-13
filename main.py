@@ -19,6 +19,9 @@ finalize
 
 use \"-\" instead of spaces in between of entries
 """
+
+
+
 import matplotlib.pyplot as plt
 import numpy as np
 import datetime
@@ -29,8 +32,9 @@ fields = ['icode','category','name','istock','iprice',"idiscount","isold"]
 store = pd.read_csv("./data/db.csv", header=None, index_col=0, names=['icode','category','name','istock','iprice',"idiscount","isold","netsales"], dtype={"istock":int,"iprice":float,"idiscount":float,"isold":float,"netsales":float})
 last_bill = pd.read_csv("./data/lastbill.csv", header=None, index_col=0, names=['name','qty','price',"discount","amt"])
 
+
 def parse_bill(inp: str):
-    y = inp.strip().split(" ")
+    y = inp.strip().split(" ") 
     y[1] = y[1].upper()
     if y[0].upper() == "ADDEDIT":
         try:
@@ -112,7 +116,7 @@ def stock(icode: str,change:int):
     else:
         print("Must have atleast 0 stock")
     
-def edit(icode: int, field: str ,value: any):
+def edit(icode: str, field: str ,value: any):
     store.loc[icode,field]=value
 
 def add_item(icode: str,cat: str,name: str,istock: int,iprice: float,discount: float,isold: int, netsales: float):
@@ -191,4 +195,5 @@ def viewsales():
     plt.title("Sales in thousands")
     plt.tight_layout()
     plt.show()
+
 main()
